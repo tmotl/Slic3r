@@ -456,7 +456,7 @@ GCodeWriter::retract_for_toolchange()
 {
     // ensure that we don't have overlapping retract/unretract of different lengths for fw retract.
     std::string gcode = "";
-    if (this->config.use_firmware_retraction) gcode += this->_unretract(); 
+    if (this->config.use_firmware_retraction) gcode += this->unretract(); 
     gcode += this->_retract(
         this->_extruder->retract_length_toolchange(),
         this->_extruder->retract_restart_extra_toolchange(),
