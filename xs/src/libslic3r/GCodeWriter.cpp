@@ -515,9 +515,12 @@ GCodeWriter::unretract()
     if (dE != 0) {
         if (this->config.use_firmware_retraction) {
             if (FLAVOR_IS(gcfMachinekit))
-                 gcode << "G23 ; unretract\n";
+                 gcode << "G23";
+                if (this->config.gcode_comments) gcode << " ; unretract";
             else
-                 gcode << "G11 ; unretract\n";
+                 gcode << "G11";
+                if (this->config.gcode_comments) gcode << " ; unretract";
+            gcode << "\n";
             gcode << this->reset_e();
         } else {
             // use G1 instead of G0 because G0 will blend the restart with the previous travel move
