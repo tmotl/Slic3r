@@ -769,8 +769,9 @@ GCode::set_extruder(unsigned int extruder_id)
     // set the new extruder to the operating temperature
     if (this->ooze_prevention.enable)
         gcode += this->ooze_prevention.post_toolchange(*this);
-    // Immediately prime the new tool (avoid a bug where layer change can interact in bad ways on Marlin)
-    gcode += this->unretract(); 
+    // Immediately prime the new tool (avoid a bug where layer change can do weird things with firmware retract)
+    if (this->config.use_firmware_retraction) gcode += this->unretract();  
+    
     return gcode;
 }
 
